@@ -208,21 +208,31 @@
 
       <section id="start" class="section start-section" aria-labelledby="start-title">
         <div class="start-copy reveal">
-          <h2 id="start-title">Install e.<br>Keep it simple.</h2>
+          <h2 id="start-title">Install e.</h2>
           <p>
-            Windows 10 or 11 and PowerShell 7 are all you need. The installer
-            runs per-user, never elevates, and verifies the release before it starts.
+            One command. No admin shell, Node.js, Rust, or build toolchain.
           </p>
         </div>
-        <div class="terminal reveal">
-          <div class="terminal-bar">
-            <span>powershell</span>
+        <div class="install-panel reveal">
+          <div class="install-panel-head">
+            <div class="install-platform">
+              <img src="./assets/e-mark-violet.svg" alt="" width="28" height="28">
+              <span><strong>Windows</strong> 10 / 11 · x64 + Arm64</span>
+            </div>
             <button class="copy-button" type="button" data-copy-target="install-code">
-              <span class="copy-label" aria-live="polite">Copy</span>
+              <span class="copy-label" aria-live="polite">Copy command</span>
             </button>
           </div>
-          <pre id="install-code"><code><span class="prompt">$</span> irm https://eharness.dev/install.ps1 -OutFile $env:TEMP\e.ps1; pwsh -NoProfile -File $env:TEMP\e.ps1</code></pre>
-          <p class="terminal-status"><span></span> signed manifest + SHA-256 verified</p>
+          <div class="install-command">
+            <span class="prompt" aria-hidden="true">PS&gt;</span>
+            <code id="install-code">irm https://eharness.dev/install.ps1 -OutFile $env:TEMP\e.ps1; pwsh -NoProfile -File $env:TEMP\e.ps1</code>
+          </div>
+          <div class="install-meta">
+            <span><i></i> Signed manifest</span>
+            <span><i></i> SHA-256 verified</span>
+            <span>Installs to <code>%LOCALAPPDATA%\Programs\e</code></span>
+            <a href="https://github.com/pjperez/e/releases/tag/v0.1.0">v0.1.0 <span aria-hidden="true">↗</span></a>
+          </div>
         </div>
       </section>
     </main>
