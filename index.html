@@ -221,9 +221,7 @@
               <span class="copy-label" aria-live="polite">Copy</span>
             </button>
           </div>
-          <pre id="install-code"><code><span class="prompt">$</span> irm https://eharness.dev/install.ps1 -OutFile install.ps1
-<span class="prompt">$</span> Get-Content .\install.ps1
-<span class="prompt">$</span> pwsh -NoProfile -File .\install.ps1</code></pre>
+          <pre id="install-code"><code><span class="prompt">$</span> irm https://eharness.dev/install.ps1 -OutFile $env:TEMP\e.ps1; pwsh -NoProfile -File $env:TEMP\e.ps1</code></pre>
           <p class="terminal-status"><span></span> signed manifest + SHA-256 verified</p>
         </div>
       </section>
