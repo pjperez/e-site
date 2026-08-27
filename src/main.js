@@ -2,80 +2,121 @@ import './style.css';
 
 document.documentElement.classList.add('js');
 
-const navToggle = document.querySelector('.nav-toggle');
-const nav = document.querySelector('.site-nav');
+/* --- navigation ----------------------------------------------------------- */
 
-navToggle?.addEventListener('click', () => {
-  const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
-  navToggle.setAttribute('aria-expanded', String(!isOpen));
-  nav?.classList.toggle('is-open', !isOpen);
+const menu = document.querySelector('.menu');
+const nav = document.querySelector('.masthead nav');
+
+menu?.addEventListener('click', () => {
+  const open = menu.getAttribute('aria-expanded') === 'true';
+  menu.setAttribute('aria-expanded', String(!open));
+  nav?.classList.toggle('open', !open);
 });
 
 nav?.addEventListener('click', (event) => {
-  if (event.target instanceof HTMLAnchorElement) {
-    navToggle?.setAttribute('aria-expanded', 'false');
-    nav.classList.remove('is-open');
-  }
+  if (!(event.target instanceof HTMLAnchorElement)) return;
+  menu?.setAttribute('aria-expanded', 'false');
+  nav.classList.remove('open');
 });
 
-const copyButton = document.querySelector('.copy-button');
-copyButton?.addEventListener('click', async () => {
-  const target = document.getElementById(copyButton.dataset.copyTarget);
-  const label = copyButton.querySelector('.copy-label');
-  if (!target || !label) return;
-  const defaultLabel = label.textContent;
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape' || !nav?.classList.contains('open')) return;
+  menu?.setAttribute('aria-expanded', 'false');
+  nav.classList.remove('open');
+  menu?.focus();
+});
+
+/* --- copy ----------------------------------------------------------------- */
+
+const copy = document.querySelector('.copy');
+
+copy?.addEventListener('click', async () => {
+  const source = document.getElementById(copy.dataset.target);
+  const label = copy.querySelector('.copy-text');
+  if (!source || !label) return;
+
+  const idle = label.dataset.idle ?? label.textContent;
+  label.dataset.idle = idle;
 
   try {
-    await navigator.clipboard.writeText(
-      target.innerText.replaceAll(/^\$\s/gm, ''),
-    );
+    await navigator.clipboard.writeText(source.textContent.trim());
     label.textContent = 'Copied';
   } catch {
     const range = document.createRange();
-    range.selectNodeContents(target);
-    window.getSelection()?.removeAllRanges();
-    window.getSelection()?.addRange(range);
+    range.selectNodeContents(source);
+    const selection = window.getSelection();
+    selection?.removeAllRanges();
+    selection?.addRange(range);
     label.textContent = 'Selected';
   }
-  window.setTimeout(() => {
-    label.textContent = defaultLabel;
-  }, 1800);
+
+  window.clearTimeout(copy.dataset.timer);
+  copy.dataset.timer = String(
+    window.setTimeout(() => {
+      label.textContent = idle;
+    }, 2000),
+  );
 });
 
-const revealItems = document.querySelectorAll('.reveal');
+/* --- reveal --------------------------------------------------------------- */
+
+const revealed = document.querySelectorAll(
+  '.prose-head, .rows article, .surfaces li, .extend-note, .install-body',
+);
+revealed.forEach((node) => node.setAttribute('data-reveal', ''));
+
 if ('IntersectionObserver' in window) {
-  const revealObserver = new IntersectionObserver(
+  const watcher = new IntersectionObserver(
     (entries, observer) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        entry.target.classList.add('is-visible');
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('shown');
         observer.unobserve(entry.target);
-      }
+      });
     },
-    { rootMargin: '0px 0px -8%', threshold: 0.12 },
+    { rootMargin: '0px 0px -6%', threshold: 0.1 },
   );
-  revealItems.forEach((item) => revealObserver.observe(item));
+  revealed.forEach((node) => watcher.observe(node));
 } else {
-  revealItems.forEach((item) => item.classList.add('is-visible'));
+  revealed.forEach((node) => node.classList.add('shown'));
 }
 
-const scheduleThreeMark = () => {
-  const run = () => {
-    import('./e-mark.js')
-      .then(({ mountThreeMark }) => mountThreeMark())
-      .catch((error) => {
-        console.warn('Interactive mark unavailable; using static fallback.', error);
-      });
-  };
+/* --- the mark ------------------------------------------------------------- */
+
+function webglAvailable() {
+  try {
+    const probe = document.createElement('canvas');
+    return Boolean(
+      window.WebGLRenderingContext &&
+        (probe.getContext('webgl2') || probe.getContext('webgl')),
+    );
+  } catch {
+    return false;
+  }
+}
+
+function loadMark() {
+  const canvas = document.getElementById('stage');
+  const stage = document.querySelector('.hero-stage');
+  if (!canvas || !stage || !webglAvailable()) return;
+
+  import('./mark.js')
+    .then(({ mountMark }) => mountMark(canvas, stage))
+    .catch(() => {
+      /* The static mark stays on screen. */
+    });
+}
+
+const schedule = () => {
   if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(run, { timeout: 1200 });
+    window.requestIdleCallback(loadMark, { timeout: 1500 });
   } else {
-    window.setTimeout(run, 300);
+    window.setTimeout(loadMark, 250);
   }
 };
 
 if (document.readyState === 'complete') {
-  scheduleThreeMark();
+  schedule();
 } else {
-  window.addEventListener('load', scheduleThreeMark, { once: true });
+  window.addEventListener('load', schedule, { once: true });
 }

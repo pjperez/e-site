@@ -3,29 +3,29 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#08090c">
+    <meta name="theme-color" content="#08080b">
     <meta name="color-scheme" content="dark">
-    <title>e — the extensible agent harness</title>
+    <title>e — an agent harness you can see</title>
     <meta
       name="description"
-      content="e is a minimalist, fast, extensible agent harness with a native GUI. Bring any OpenAI-compatible model, then add tools, skills, plugins, and MCP servers."
+      content="e is a minimalist, fast, extensible agent harness with a native GUI. A Rust core drives the model and its tools; a ~20 KB webview renders the run."
     >
     <link rel="canonical" href="https://eharness.dev/">
-    <link rel="icon" type="image/svg+xml" href="./assets/e-mark-violet.svg">
+    <link rel="icon" type="image/svg+xml" href="/e-mark.svg">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="e agent harness">
+    <meta property="og:site_name" content="e">
     <meta property="og:url" content="https://eharness.dev/">
-    <meta property="og:title" content="e — the extensible agent harness">
+    <meta property="og:title" content="e — an agent harness you can see">
     <meta
       property="og:description"
-      content="A fast native agent loop with an intentionally small core and open extension surfaces."
+      content="The agent loop, run locally and rendered honestly. Rust core, native webview, five extension surfaces."
     >
-    <meta property="og:image" content="https://eharness.dev/assets/e-mark-violet.svg">
+    <meta property="og:image" content="https://eharness.dev/e-mark.svg">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="e — the extensible agent harness">
+    <meta name="twitter:title" content="e — an agent harness you can see">
     <meta
       name="twitter:description"
-      content="A fast native agent loop with an intentionally small core and open extension surfaces."
+      content="The agent loop, run locally and rendered honestly. Rust core, native webview, five extension surfaces."
     >
     <script type="application/ld+json">
       {
@@ -33,228 +33,286 @@
         "@type": "SoftwareApplication",
         "name": "e",
         "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "Windows, macOS, Linux",
+        "operatingSystem": "Windows",
         "url": "https://eharness.dev/",
-        "downloadUrl": "https://github.com/pjperez/e",
+        "downloadUrl": "https://github.com/pjperez/e/releases/latest",
         "codeRepository": "https://github.com/pjperez/e",
-        "description": "A minimalist, fast, extensible agent harness with a native GUI."
+        "license": "https://github.com/pjperez/e",
+        "description": "A minimalist, fast, extensible agent harness with a native GUI.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     </script>
   </head>
-  <body>
-    <a class="skip-link" href="#main">Skip to content</a>
 
-    <header class="site-header">
-      <a class="brand" href="#top" aria-label="e home">
-        <img src="./assets/e-mark-violet.svg" alt="" width="34" height="34">
-        <span>e</span>
+  <!--
+    THESIS: e is the agent loop made visible. The page refuses the SaaS landing
+    arrangement of feature cards under a centered hero; it is laid out as a
+    specimen sheet around one luminous object.
+    OWN-WORLD: near-black ground, hairline rules, one violet light source, no
+    boxes or cards anywhere. Display type is the OS's own face at large tight
+    sizes; monospace appears only for real measurement and code.
+    STORY: a developer sees the loop as a physical curve, understands e runs
+    locally against their own models, and installs it in one command.
+    FIRST VIEWPORT: headline left at display scale, the logarithmic-spiral e
+    rendered right at full column height with particles running the loop, two
+    actions under the headline, a hairline fact strip pinned at the bottom.
+    FORM: specimen sheet. The mark is r = a·e^(bθ), so the mark, the math and
+    the loop are the same object; the page is built around it, not beside it.
+  -->
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="masthead">
+      <a class="wordmark" href="#top" aria-label="e, home">
+        <img src="/e-mark.svg" alt="" width="28" height="28">
       </a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-        <span class="sr-only">Toggle navigation</span>
+
+      <button class="menu" type="button" aria-expanded="false" aria-controls="nav">
+        <span class="sr-only">Menu</span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </button>
-      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
-        <a href="#principles">Why e</a>
+
+      <nav id="nav" aria-label="Primary">
+        <a href="#loop">The loop</a>
+        <a href="#build">What it does</a>
         <a href="#extend">Extend</a>
-        <a href="#start">Start</a>
-        <a class="nav-github" href="https://github.com/pjperez/e">GitHub <span aria-hidden="true">↗</span></a>
+        <a href="#install">Install</a>
+        <a class="nav-repo" href="https://github.com/pjperez/e">
+          GitHub<span aria-hidden="true">↗</span>
+        </a>
       </nav>
     </header>
 
     <main id="main">
-      <section id="top" class="hero" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <h1 id="hero-title">Small core.<br><em>Infinite surface.</em></h1>
-          <p class="hero-lede">
-            The agent loop, distilled. A fast Rust core drives your model and tools while a
-            tiny native webview stays out of the way.
+      <section id="top" class="hero">
+        <div class="hero-text">
+          <h1>
+            The agent loop,<br>
+            <em>made visible.</em>
+          </h1>
+          <p class="lede">
+            A Rust core drives your model and runs its tools on your machine.
+            A hand-written webview shows every step as it happens — no terminal,
+            no framework, no black box.
           </p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="https://github.com/pjperez/e">
-              View on GitHub <span aria-hidden="true">↗</span>
+          <div class="actions">
+            <a class="btn btn-solid" href="#install">
+              Install for Windows
             </a>
-            <a class="button button-quiet" href="#start">Install for Windows <span aria-hidden="true">↓</span></a>
-          </div>
-          <p class="hero-status"><span></span> Native agent harness · open source</p>
-          <dl class="hero-facts" aria-label="Project highlights">
-            <div>
-              <dt>Core</dt>
-              <dd>Rust + Tauri</dd>
-            </div>
-            <div>
-              <dt>Frontend</dt>
-              <dd>Vanilla TypeScript</dd>
-            </div>
-            <div>
-              <dt>Providers</dt>
-              <dd>OpenAI-compatible</dd>
-            </div>
-          </dl>
-        </div>
-
-        <div class="hero-visual" aria-hidden="true">
-          <div class="visual-frame">
-            <canvas id="mark-canvas"></canvas>
-            <img class="visual-fallback" src="./assets/e-mark-violet.svg" alt="">
-            <div class="visual-label visual-label-a"><span></span> tools</div>
-            <div class="visual-label visual-label-b"><span></span> skills</div>
-            <div class="visual-label visual-label-c"><span></span> mcp</div>
-            <p class="visual-equation">r = a · e<sup>bθ</sup></p>
+            <a class="btn btn-line" href="https://github.com/pjperez/e">
+              Read the source<span aria-hidden="true">↗</span>
+            </a>
           </div>
         </div>
-      </section>
 
-      <section class="loop-band" aria-label="The agent loop">
-        <span>converse</span>
-        <i aria-hidden="true"></i>
-        <span>call tools</span>
-        <i aria-hidden="true"></i>
-        <span>apply</span>
-        <i aria-hidden="true"></i>
-        <span>repeat</span>
-      </section>
-
-      <section id="principles" class="section principles" aria-labelledby="principles-title">
-        <div class="section-heading reveal">
-          <h2 id="principles-title">Built for the work,<br>not the ceremony.</h2>
-          <p class="section-intro">
-            e keeps the agent loop direct: local tools, inspectable work, and no framework
-            between you and the task.
-          </p>
+        <div class="hero-stage">
+          <canvas id="stage" aria-hidden="true"></canvas>
+          <img class="stage-fallback" src="/e-mark.svg" alt="" aria-hidden="true">
+          <p class="stage-caption" aria-hidden="true">r = a·e<sup>bθ</sup></p>
         </div>
-        <div class="principle-grid">
-          <article class="principle-card reveal">
-            <p class="card-tag">Harness</p>
+
+        <dl class="facts">
+          <div>
+            <dt>Core</dt>
+            <dd>Rust · Tauri&nbsp;2</dd>
+          </div>
+          <div>
+            <dt>Renderer</dt>
+            <dd>~20 KB, no framework</dd>
+          </div>
+          <div>
+            <dt>Models</dt>
+            <dd>Any OpenAI-compatible</dd>
+          </div>
+          <div>
+            <dt>Keys</dt>
+            <dd>~/.e/config.json</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section id="loop" class="loop" aria-labelledby="loop-title">
+        <h2 id="loop-title" class="sr-only">The agent loop</h2>
+        <ol>
+          <li>
+            <span class="step">01</span>
+            <span class="verb">Converse</span>
+            <span class="gloss">You describe the outcome, not the commands.</span>
+          </li>
+          <li>
+            <span class="step">02</span>
+            <span class="verb">Call tools</span>
+            <span class="gloss">PowerShell, read, write, list, skills — locally.</span>
+          </li>
+          <li>
+            <span class="step">03</span>
+            <span class="verb">Apply</span>
+            <span class="gloss">Results feed back in; the run keeps its context.</span>
+          </li>
+          <li>
+            <span class="step">04</span>
+            <span class="verb">Repeat</span>
+            <span class="gloss">Bounded to 25 steps. Esc stops it instantly.</span>
+          </li>
+        </ol>
+      </section>
+
+      <section id="build" class="prose" aria-labelledby="build-title">
+        <div class="prose-head">
+          <p class="marker">What it does</p>
+          <h2 id="build-title">Everything runs where you are.</h2>
+        </div>
+
+        <div class="rows">
+          <article>
             <h3>A harness, not a wrapper.</h3>
             <p>
-              Models call local tools and consume their results until the task is done. Runs
-              remain inspectable, bounded, and cancellable.
+              The model calls real tools and reads their real output until the
+              task is finished. Every call is a card you can open, and the whole
+              run is cancellable.
             </p>
           </article>
-          <article class="principle-card reveal">
-            <p class="card-tag">Providers</p>
-            <h3>Your models, your keys.</h3>
+
+          <article>
+            <h3>Your models. Your keys.</h3>
             <p>
-              Connect OpenAI, Ollama, LM Studio, vLLM, OpenRouter, or any compatible endpoint.
-              Switch providers per conversation.
+              OpenAI, Ollama, LM&nbsp;Studio, vLLM, Together, OpenRouter or your
+              own gateway. Keep several configured at once and switch per chat —
+              the model carries its provider, key and context window with it.
             </p>
           </article>
-          <article class="principle-card reveal">
-            <p class="card-tag">Runtime</p>
-            <h3>Native by design.</h3>
+
+          <article>
+            <h3>Chats and projects that hold.</h3>
             <p>
-              Tauri uses the operating system webview instead of bundling a browser. The result
-              is a focused app with a deliberately small renderer.
+              Conversations persist and fork, each with its own workspace, model
+              and token budget. History summarises itself as a chat approaches
+              the model's context window.
             </p>
           </article>
-          <article class="principle-card reveal">
-            <p class="card-tag">Workspaces</p>
-            <h3>Work stays isolated.</h3>
+
+          <article>
+            <h3>Tasks stay isolated.</h3>
             <p>
-              Chats carry their own workspace, model, history, and budget. Git projects can use
-              an app-managed worktree for every task.
+              Git projects get an app-managed worktree per task by default, so
+              parallel work never collides. Delete the task and the worktree
+              goes with it.
+            </p>
+          </article>
+
+          <article>
+            <h3>Nothing is hidden.</h3>
+            <p>
+              Tokens, reasoning, tool cards and live token and cost counters all
+              stream as the run happens. You are watching the loop, not a
+              progress bar.
+            </p>
+          </article>
+
+          <article>
+            <h3>Native, and small.</h3>
+            <p>
+              Tauri&nbsp;2 uses the operating system's own webview instead of
+              shipping a browser. One executable, a ~20&nbsp;KB renderer, and no
+              Electron underneath.
             </p>
           </article>
         </div>
       </section>
 
-      <section id="extend" class="section extension-section" aria-labelledby="extend-title">
-        <div class="section-heading reveal">
-          <h2 id="extend-title">Open where it matters.</h2>
-          <p class="section-intro">
-            Keep the core lean. Add capability at the edge through explicit, composable surfaces.
-          </p>
+      <section id="extend" class="extend" aria-labelledby="extend-title">
+        <div class="prose-head">
+          <p class="marker">Extend</p>
+          <h2 id="extend-title">Five surfaces.<br>Four need no rebuild.</h2>
         </div>
 
-        <div class="extension-list">
-          <a class="extension-row reveal" href="https://github.com/pjperez/e#add-a-tool">
-            <span class="extension-id">01</span>
-            <span class="extension-name">Tools</span>
-            <span class="extension-copy">Rust structs, one trait</span>
-            <span class="extension-meta">rebuild</span>
-            <span class="extension-arrow" aria-hidden="true">↗</span>
+        <ul class="surfaces">
+          <li>
+            <span class="s-name">Tools</span>
+            <span class="s-what">A Rust struct implementing one trait</span>
+            <code class="s-where">src-tauri/src/engine/tools.rs</code>
+            <span class="s-cost">rebuild</span>
+          </li>
+          <li>
+            <span class="s-name">Providers</span>
+            <span class="s-what">Any OpenAI-compatible base URL</span>
+            <code class="s-where">Settings ⚙</code>
+            <span class="s-cost">instant</span>
+          </li>
+          <li>
+            <span class="s-name">Skills</span>
+            <span class="s-what">Prompt packages loaded on demand</span>
+            <code class="s-where">~/.e/skills/&lt;name&gt;/SKILL.md</code>
+            <span class="s-cost">drop in</span>
+          </li>
+          <li>
+            <span class="s-name">Plugins</span>
+            <span class="s-what">JS tools, commands, views and guards</span>
+            <code class="s-where">~/.e/plugins/&lt;name&gt;/index.js</code>
+            <span class="s-cost">drop in</span>
+          </li>
+          <li>
+            <span class="s-name">MCP</span>
+            <span class="s-what">External servers; their tools merge in</span>
+            <code class="s-where">~/.e/mcp.json</code>
+            <span class="s-cost">drop in</span>
+          </li>
+        </ul>
+
+        <p class="extend-note">
+          Each has a project-scoped form under <code>&lt;project&gt;/.e/</code>
+          that shadows the global one, so a repository can carry its own tools.
+          <a href="https://github.com/pjperez/e/blob/main/docs/EXTENDING.md">
+            Extending e<span aria-hidden="true">↗</span>
           </a>
-          <a class="extension-row reveal" href="https://github.com/pjperez/e#first-run">
-            <span class="extension-id">02</span>
-            <span class="extension-name">Providers</span>
-            <span class="extension-copy">Any OpenAI-compatible endpoint</span>
-            <span class="extension-meta">settings</span>
-            <span class="extension-arrow" aria-hidden="true">↗</span>
-          </a>
-          <a class="extension-row reveal" href="https://github.com/pjperez/e/blob/main/docs/EXTENDING.md">
-            <span class="extension-id">03</span>
-            <span class="extension-name">Skills</span>
-            <span class="extension-copy">Prompt packages loaded on demand</span>
-            <span class="extension-meta">drop in</span>
-            <span class="extension-arrow" aria-hidden="true">↗</span>
-          </a>
-          <a class="extension-row reveal" href="https://github.com/pjperez/e/blob/main/docs/EXTENDING.md">
-            <span class="extension-id">04</span>
-            <span class="extension-name">Plugins</span>
-            <span class="extension-copy">JavaScript tools, commands, views, guards</span>
-            <span class="extension-meta">drop in</span>
-            <span class="extension-arrow" aria-hidden="true">↗</span>
-          </a>
-          <a class="extension-row reveal" href="https://github.com/pjperez/e/blob/main/docs/EXTENDING.md">
-            <span class="extension-id">05</span>
-            <span class="extension-name">MCP</span>
-            <span class="extension-copy">External Model Context Protocol servers</span>
-            <span class="extension-meta">configure</span>
-            <span class="extension-arrow" aria-hidden="true">↗</span>
-          </a>
-        </div>
+        </p>
       </section>
 
-      <section id="start" class="section start-section" aria-labelledby="start-title">
-        <div class="start-copy reveal">
-          <h2 id="start-title">Install e.</h2>
-          <p>
-            One command. No admin shell, Node.js, Rust, or build toolchain.
-          </p>
+      <section id="install" class="install" aria-labelledby="install-title">
+        <div class="prose-head">
+          <p class="marker">Install</p>
+          <h2 id="install-title">One command.</h2>
         </div>
-        <div class="install-panel reveal">
-          <div class="install-panel-head">
-            <div class="install-platform">
-              <img src="./assets/e-mark-violet.svg" alt="" width="28" height="28">
-              <span><strong>Windows</strong> 10 / 11 · x64 + Arm64</span>
-            </div>
-            <button class="copy-button" type="button" data-copy-target="install-code">
-              <span class="copy-label" aria-live="polite">Copy command</span>
+
+        <div class="install-body">
+          <div class="cmd">
+            <code id="cmd-text">irm https://eharness.dev/install.ps1 -OutFile $env:TEMP\e.ps1; pwsh -NoProfile -File $env:TEMP\e.ps1</code>
+            <button class="copy" type="button" data-target="cmd-text">
+              <span class="copy-text" aria-live="polite">Copy</span>
             </button>
           </div>
-          <div class="install-command">
-            <span class="prompt" aria-hidden="true">PS&gt;</span>
-            <code id="install-code">irm https://eharness.dev/install.ps1 -OutFile $env:TEMP\e.ps1; pwsh -NoProfile -File $env:TEMP\e.ps1</code>
-          </div>
-          <div class="install-meta">
-            <span><i></i> Signed manifest</span>
-            <span><i></i> SHA-256 verified</span>
-            <span>Installs to <code>%LOCALAPPDATA%\Programs\e</code></span>
-            <a href="https://github.com/pjperez/e/releases/tag/v0.1.0">v0.1.0 <span aria-hidden="true">↗</span></a>
-          </div>
+
+          <ul class="install-facts">
+            <li>Windows 10 and 11 · x64 and Arm64</li>
+            <li>No Node.js, Rust or build toolchain</li>
+            <li>SHA-256 checked against a signed release manifest</li>
+          </ul>
+
+          <p class="install-alt">
+            Prefer to see it first? Download the
+            <a href="/install.ps1">bootstrap script</a>,
+            grab the installer straight from
+            <a href="https://github.com/pjperez/e/releases/latest">Releases</a>,
+            or
+            <a href="https://github.com/pjperez/e#build-from-source">build from source</a>.
+          </p>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="footer-brand">
-        <img src="./assets/e-mark-violet.svg" alt="" width="30" height="30">
-        <p>Less harness.<br>More leverage.</p>
-      </div>
-      <div class="footer-links">
-        <div>
-          <p>Project</p>
-          <a href="https://github.com/pjperez/e">Source</a>
-          <a href="https://github.com/pjperez/e/tree/main/examples">Examples</a>
-        </div>
-        <div>
-          <p>Learn</p>
-          <a href="https://github.com/pjperez/e#install">Install</a>
-          <a href="https://github.com/pjperez/e/blob/main/docs/EXTENDING.md">Extend</a>
-        </div>
-      </div>
-      <p class="footer-note">Open source · Built with intent</p>
+    <footer>
+      <p class="sign">
+        <img src="/e-mark.svg" alt="" width="22" height="22">
+        <span>Small core. Everything else is yours.</span>
+      </p>
+      <nav aria-label="Footer">
+        <a href="https://github.com/pjperez/e">Source</a>
+        <a href="https://github.com/pjperez/e/blob/main/docs/EXTENDING.md">Extending</a>
+        <a href="https://github.com/pjperez/e/tree/main/examples">Examples</a>
+        <a href="https://github.com/pjperez/e/releases/latest">Releases</a>
+      </nav>
     </footer>
 
     <script type="module" src="/src/main.js"></script>

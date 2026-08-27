@@ -1,36 +1,39 @@
-# e harness site
+# eharness.dev
 
-The source for [eharness.dev](https://eharness.dev), the landing page for the
-[e agent harness](https://github.com/pjperez/e).
+The landing page for [e](https://github.com/pjperez/e), a minimalist agent
+harness with a native GUI.
 
-## Development
+## Layout
+
+```
+index.html          markup and the design contract for the page
+src/main.js         navigation, copy button, reveals, lazy mark loader
+src/mark.js         the Three.js e mark (r = a·e^(bθ)) with bloom
+src/style.css       tokens and layout
+public/e-mark.svg   static mark, also the WebGL fallback and favicon
+public/install.ps1  Windows bootstrap, served from this domain
+```
+
+`public/install.ps1` must stay byte-for-byte identical to `install.ps1` in
+`pjperez/e`. It is hosted here so the script and the release artifacts it
+verifies come from two independent origins.
+
+## Develop
 
 Requires Node.js 20.19 or newer.
 
 ```bash
 npm install
 npm run dev
+npm run build      # writes dist/
 ```
 
-The production build is written to `dist/`:
+## Deploy
 
-```bash
-npm run build
-```
-
-`public/install.ps1` is the independently hosted bootstrap for Windows
-releases. Keep it byte-for-byte aligned with `install.ps1` in `pjperez/e`
-whenever the release verification key or installer behavior changes.
-
-## Deployment
-
-The site deploys as a Cloudflare Worker with static assets. Authenticate Wrangler,
-then run:
+The site is a Cloudflare Worker serving static assets. `wrangler.jsonc`
+declares `eharness.dev` as a custom domain, so Cloudflare manages the DNS
+record and certificate.
 
 ```bash
 npm run deploy
 ```
-
-`wrangler.jsonc` declares `eharness.dev` as a custom domain, so Cloudflare manages
-the DNS record and certificate when the Worker is deployed. The domain must be an
-active zone in the deploying account and cannot already have a conflicting CNAME.
