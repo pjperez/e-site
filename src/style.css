@@ -571,75 +571,105 @@ img {
 
 .start-section {
   display: grid;
-  grid-template-columns: minmax(280px, 0.76fr) minmax(420px, 1.24fr);
-  gap: clamp(60px, 10vw, 150px);
+  grid-template-columns: minmax(240px, 0.62fr) minmax(560px, 1.38fr);
+  align-items: center;
+  gap: clamp(56px, 8vw, 120px);
+  padding-block: 110px;
   border-top: 1px solid var(--line);
 }
 
 .start-copy h2 {
   margin-top: 0;
+  font-size: clamp(2.8rem, 4.2vw, 4.4rem);
+  line-height: 0.96;
 }
 
 .start-copy > p:last-child {
-  max-width: 440px;
-  margin: 28px 0 0;
+  max-width: 360px;
+  margin: 22px 0 0;
   color: var(--muted);
-  font-size: 0.93rem;
-  line-height: 1.7;
+  font-size: 0.96rem;
+  line-height: 1.65;
 }
 
-.start-copy a {
-  color: var(--violet-bright);
-  text-underline-offset: 4px;
-}
-
-.terminal {
-  align-self: center;
+.install-panel {
   overflow: hidden;
-  background: #0c0d11;
+  background: #0e0f14;
   border: 1px solid var(--line-strong);
-  border-radius: 5px;
-  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.28);
+  border-radius: 8px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.24);
 }
 
-.terminal-bar {
+.install-panel-head {
   display: flex;
-  height: 47px;
-  padding: 0 17px;
+  min-height: 64px;
+  padding: 12px 14px 12px 18px;
   align-items: center;
   justify-content: space-between;
-  color: var(--dim);
-  background: rgba(255, 255, 255, 0.02);
+  gap: 18px;
   border-bottom: 1px solid var(--line);
+}
+
+.install-platform {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 11px;
+  color: var(--dim);
   font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.08em;
+  font-size: 0.66rem;
+}
+
+.install-platform img {
+  flex: 0 0 auto;
+  filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.25));
+}
+
+.install-platform strong {
+  color: #d5d1dc;
+  font-weight: 650;
 }
 
 .copy-button {
-  padding: 5px 9px;
-  color: #bcb7c4;
-  background: transparent;
-  border: 1px solid var(--line);
-  border-radius: 4px;
+  min-height: 38px;
+  padding: 0 14px;
+  flex: 0 0 auto;
+  color: #100d16;
+  background: var(--violet-bright);
+  border: 0;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 0.62rem;
+  font-size: 0.72rem;
+  font-weight: 720;
+  transition:
+    background 180ms ease,
+    transform 180ms ease;
 }
 
 .copy-button:hover {
-  color: var(--ink);
-  border-color: var(--line-strong);
+  background: #d7ceff;
+  transform: translateY(-1px);
 }
 
-.terminal pre {
-  min-height: 240px;
-  padding: 32px;
-  margin: 0;
-  overflow-x: auto;
-  color: #dbd7e1;
+.install-command {
+  display: grid;
+  padding: clamp(24px, 3vw, 36px);
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 13px;
+  color: #dfdbe5;
+  background: #090a0e;
   font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
-  font-size: clamp(0.72rem, 1.15vw, 0.86rem);
-  line-height: 2;
+  font-size: clamp(0.72rem, 0.9vw, 0.84rem);
+  line-height: 1.75;
+}
+
+.install-command code {
+  min-width: 0;
+  color: inherit;
+  font: inherit;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .prompt {
@@ -647,25 +677,47 @@ img {
   user-select: none;
 }
 
-.terminal-status {
-  display: flex;
-  min-height: 45px;
-  padding: 0 17px;
-  margin: 0;
+.install-meta {
+  display: grid;
+  min-height: 52px;
+  padding: 11px 18px;
   align-items: center;
-  gap: 8px;
+  grid-template-columns: auto auto minmax(180px, 1fr) auto;
+  gap: 10px 20px;
   color: var(--dim);
   border-top: 1px solid var(--line);
   font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
   font-size: 0.59rem;
 }
 
-.terminal-status span {
+.install-meta > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.install-meta i {
   width: 5px;
   height: 5px;
+  flex: 0 0 auto;
   background: var(--mint);
   border-radius: 50%;
   box-shadow: 0 0 10px rgba(120, 232, 192, 0.65);
+}
+
+.install-meta code {
+  color: #aaa5b2;
+  font: inherit;
+}
+
+.install-meta a {
+  color: var(--violet-bright);
+  text-decoration: none;
+}
+
+.install-meta a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .site-footer {
@@ -788,7 +840,32 @@ img {
 
   .start-section {
     grid-template-columns: 1fr;
-    gap: 70px;
+    gap: 42px;
+  }
+
+  .start-copy {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.8fr) minmax(280px, 1.2fr);
+    align-items: end;
+    gap: 42px;
+  }
+
+  .start-copy > p:last-child {
+    margin: 0 0 4px;
+  }
+
+  .install-meta {
+    grid-template-columns: auto auto 1fr;
+  }
+
+  .install-meta a {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+  }
+
+  .install-meta > span:nth-child(3) {
+    grid-column: 1 / -1;
   }
 }
 
@@ -934,12 +1011,49 @@ img {
   }
 
   .start-section {
-    gap: 55px;
+    gap: 34px;
+    padding-block: 80px;
   }
 
-  .terminal pre {
-    min-height: 220px;
-    padding: 25px 20px;
+  .start-copy {
+    display: block;
+  }
+
+  .start-copy > p:last-child {
+    margin-top: 18px;
+  }
+
+  .install-panel-head {
+    align-items: flex-start;
+  }
+
+  .install-platform {
+    align-items: flex-start;
+  }
+
+  .install-platform span {
+    max-width: 155px;
+    line-height: 1.55;
+  }
+
+  .copy-button {
+    min-height: 44px;
+  }
+
+  .install-command {
+    padding: 24px 18px;
+  }
+
+  .install-meta {
+    padding-block: 15px;
+    grid-template-columns: 1fr;
+  }
+
+  .install-meta a,
+  .install-meta > span:nth-child(3) {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: start;
   }
 
   .site-footer {

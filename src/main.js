@@ -23,18 +23,23 @@ copyButton?.addEventListener('click', async () => {
   const target = document.getElementById(copyButton.dataset.copyTarget);
   const label = copyButton.querySelector('.copy-label');
   if (!target || !label) return;
+  const defaultLabel = label.textContent;
 
   try {
     await navigator.clipboard.writeText(
       target.innerText.replaceAll(/^\$\s/gm, ''),
     );
     label.textContent = 'Copied';
-    window.setTimeout(() => {
-      label.textContent = 'Copy';
-    }, 1800);
   } catch {
-    label.textContent = 'Select to copy';
+    const range = document.createRange();
+    range.selectNodeContents(target);
+    window.getSelection()?.removeAllRanges();
+    window.getSelection()?.addRange(range);
+    label.textContent = 'Selected';
   }
+  window.setTimeout(() => {
+    label.textContent = defaultLabel;
+  }, 1800);
 });
 
 const revealItems = document.querySelectorAll('.reveal');
