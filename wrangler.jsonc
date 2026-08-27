@@ -1,0 +1,16 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "e-harness-site",
+  "compatibility_date": "2026-08-27",
+  "workers_dev": true,
+  "preview_urls": true,
+  "assets": {
+    "directory": "./dist"
+  },
+  "routes": [
+    {
+      "pattern": "eharness.dev",
+      "custom_domain": true
+    }
+  ]
+}
