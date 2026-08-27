@@ -1,0 +1,22 @@
+{
+  "name": "e-harness-site",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "npm run build",
+    "deploy": "npm run build && npx wrangler@4.124.0 deploy"
+  },
+  "dependencies": {
+    "three": "^0.185.1"
+  },
+  "devDependencies": {
+    "vite": "^8.2.1"
+  },
+  "engines": {
+    "node": ">=20.19"
+  }
+}
