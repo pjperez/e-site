@@ -278,7 +278,7 @@
 
         <div class="install-body">
           <div class="cmd">
-            <code id="cmd-text">irm https://eharness.dev/install.ps1 -OutFile $env:TEMP\e.ps1; pwsh -NoProfile -File $env:TEMP\e.ps1</code>
+            <code id="cmd-text">irm https://eharness.dev/install.ps1 -OutFile $env:TEMP\e.ps1; powershell.exe -NoProfile -ExecutionPolicy Bypass -File $env:TEMP\e.ps1</code>
             <button class="copy" type="button" data-target="cmd-text">
               <span class="copy-text" aria-live="polite">Copy</span>
             </button>
